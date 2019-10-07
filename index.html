@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Expense Tracker</title>
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="grey lighten-4">
+    <!-- Name filed on load -->
+    <div class="container addmyname">
+      <div class="row valign-wrapper" style="padding: 32px;">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">person</i>
+            <input id="myname" type="text" class="validate" />
+            <label for="myname">Your Name</label>
+          </div>
+          <div class="input-field col s12">
+            <a id="getName" class="right waves-effect waves-light btn">Done</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three tiled header -->
+    <div
+      class="row navigate blue-grey lighten-5 z-depth-2"
+      style="padding: 0 10px;"
+    >
+      <div class="col s4">
+        <div id="addexp" class="header1 header valign-wrapper">
+          <p class="center-align white-text">Add</p>
+        </div>
+      </div>
+      <div class="col s4">
+        <div id="getchart" class="header2 header valign-wrapper">
+          <p class="center-align white-text">
+            Chart
+          </p>
+        </div>
+      </div>
+      <div class="col s4">
+        <div id="gettable" class="header3 header valign-wrapper">
+          <p class="center-align white-text">List</p>
+        </div>
+      </div>
+    </div>
+    <div class="row subnav">
+      <div class="col s12 m4 ">
+        <p class="center-align">Date</p>
+      </div>
+      <div class="col s12 m4"><p class="center-align">Day</p></div>
+      <div class="col s12 m4"><p class="center-align">Month</p></div>
+    </div>
+
+    <!-- Add Expense Div -->
+    <div class="container expenseDiv">
+      <div class="col s12"><h4 style="margin-left: 12px;">Expense</h4></div>
+      <div class="row">
+        <form id="expenseForm" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">date_range</i>
+              <input id="date" type="text" class="datepicker" />
+              <label for="date">Date</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">money</i>
+              <input id="amount" type="number" class="validate" />
+              <label for="amount">Amount</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">format_list_bulleted</i>
+              <select id="catagory">
+                <option value="" selected disabled>Select Catagory</option>
+                <option value="household">Household</option>
+                <option value="food">Food</option>
+                <option value="taxi">Taxi</option>
+                <option value="grocery">Grocery</option>
+                <option value="type">Type my own</option>
+              </select>
+              <label>Select catagory</label>
+            </div>
+            <div id="typemo" class="input-field col s12">
+              <i class="material-icons prefix">post_add</i>
+              <input id="addcatagory" type="text" class="validate" />
+              <label for="addcatagory">Type my own</label>
+            </div>
+            <div class="col s12 subBtn">
+              <a id="addexpense" class="right waves-effect waves-light btn"
+                ><i class="material-icons right">add</i>Add</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Chart Div (Both Pie and Bar) -->
+    <div class="chart">
+      <div class="row">
+        <div class="col s12 l6 pie ">
+          <!-- Pie Chart -->
+          <div class="pieDiv center-align white">
+            <h4>All Expenses</h4>
+            <canvas id="myChartpie"></canvas>
+          </div>
+        </div>
+        <!-- Bar Chart -->
+        <div class="col s12 l6 bar ">
+          <div class="barDiv center-align white">
+            <h4 id="filterbar">Monthly</h4>
+            <div class="barnavs blue-grey lighten-2">
+              <div class="" id="filtermonths">
+                <i id="filterm" class="white-text material-icons">
+                  tab
+                </i>
+              </div>
+              <div class="" id="filterdays">
+                <i id="filterd" class="grey-text text-lighten-1 material-icons">
+                  subject
+                </i>
+              </div>
+            </div>
+            <canvas id="myChartbar"> </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Table list -->
+    <div class="table">
+      <div class="container " style="padding: 25px">
+        <table class=" white z-depth-2">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+
+          <tbody id="addrows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- Chart method -->
+    <script type="text/javascript" src="js/mychart.js"></script>
+    <!-- Custom index -->
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
+</html>
